@@ -7,7 +7,7 @@ INCLUDE = ./include
 SRC_LIB = ./src/lib
 
 # SUB_DIRS =
-LIB_FILES  = $(OBJ)/gsi_person.o
+LIB_FILES  = $(OBJ)/gsi_person.o $(OBJ)/gsi_event.o
 MAIN_FILES = $(BIN)/gsi
 
 EXS   = c
