@@ -17,6 +17,8 @@ void event_effect_init(EventEffect* effect, Person* person) {
  */
 void event_effect_clear(EventEffect* effect) {
     effect->person = NULL;
+} void event_effect_destructor(void* effect) {
+    event_effect_clear((EventEffect*) effect);
 }
 
 /**
@@ -52,8 +54,10 @@ void event_clear(Event* event) {
     }
 
     if (event->toPersons != NULL) {
-        linked_list_clear_eraser_destructor(event->toPersons, event_effect_clear);
+        linked_list_clear_eraser_destructor(event->toPersons, event_effect_destructor);
         free(event->toPersons);
         event->toPersons = NULL;
     }
+} void event_destructor(void* event) {
+    event_clear((Event*) event);
 }

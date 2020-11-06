@@ -30,6 +30,7 @@ void event_effect_init(EventEffect* effect, Person* person);
  * @param effect instância de EventEffect
  */
 void event_effect_clear(EventEffect* effect);
+void event_effect_destructor(void* effect);
 
 /**
  * Inicializa Event
@@ -47,5 +48,6 @@ void event_init(Event* event, const char* description, EventEffect* fromPerson, 
  * @param event instância de Event
  */
 void event_clear(Event* event);
+void event_destructor(void* event);
 
 #endif // GSI_EVENT_H_INCLUDED

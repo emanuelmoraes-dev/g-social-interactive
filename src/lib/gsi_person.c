@@ -23,6 +23,8 @@ void relationship_clear(Relationship* relationship) {
         free(relationship->description);
         relationship->description = NULL;
     }
+} void relationship_destructor(void* relationship) {
+    relationship_clear((Relationship*) relationship);
 }
 
 /**
@@ -49,10 +51,12 @@ void contact_clear(Contact* contact) {
     contact->person = NULL;
 
     if (contact->relationships != NULL) {
-        linked_list_clear_eraser_destructor(contact->relationships, relationship_clear);
+        linked_list_clear_eraser_destructor(contact->relationships, relationship_destructor);
         free(contact->relationships);
         contact->relationships = NULL;
     }
+} void contact_destructor(void* contact) {
+    contact_clear((Contact*) contact);
 }
 
 /**
@@ -85,8 +89,10 @@ void person_clear(Person* person) {
     }
 
     if (person->contacts != NULL) {
-        linked_list_clear_eraser_destructor(person->contacts, contact_clear);
+        linked_list_clear_eraser_destructor(person->contacts, contact_destructor);
         free(person->contacts);
         person->contacts = NULL;
     }
+} void person_destructor(void* person) {
+    person_clear((Person*) person);
 }

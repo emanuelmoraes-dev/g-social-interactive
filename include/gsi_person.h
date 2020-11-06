@@ -35,6 +35,7 @@ void relationship_init(Relationship* relationship, const char* description);
  * @param relationship instância de Relationship
  */
 void relationship_clear(Relationship* relationship);
+void relationship_destructor(void* relationship);
 
 /**
  * Inicializa um contato
@@ -51,6 +52,7 @@ void contact_init(Contact* contact, Person* person, LinkedList* relationships);
  * @param contact instância de Contact
  */
 void contact_clear(Contact* contact);
+void contact_destructor(void* contact);
 
 /**
  * Inicializa uma pessoa
@@ -67,5 +69,6 @@ void person_init(Person* person, char name[100], char nickname[20]);
  * @param person instância de Person
  */
 void person_clear(Person* person);
+void person_destructor(void* person);
 
 #endif // GSI_PERSON_H_INCLUDED
