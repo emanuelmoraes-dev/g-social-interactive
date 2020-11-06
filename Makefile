@@ -14,7 +14,7 @@ EXS   = c
 EXH   = h
 CC    = gcc
 FLAGS = -O3 -Wall -std=c99
-LIBS  = -L $(LIB) -lm -lgsi
+LIBS  = -L $(LIB) -lm -lgsi -lcemdutil
 
 all: dirs libgsi $(MAIN_FILES)
 
@@ -27,8 +27,8 @@ dirs:
 
 clean:
 	rm -rf $(BIN)
-	rm -rf $(LIB)
 	rm -rf $(OBJ)
+	rm -rf $(LIB)/libgsi.a
 
 $(OBJ)/%.o: $(SRC_LIB)/%.$(EXS) $(INCLUDE)/%.$(EXH)
 	$(CC) $(FLAGS) -c $< -I $(INCLUDE) -o $@
