@@ -6,7 +6,7 @@
 #include "linked_list.h"
 #include "dynamic_string.h"
 
-typedef struct st_event_effects {
+typedef struct st_event_effect {
     borrowed Person* person; // Pessoa afetada pelo evento
 } EventEffect;
 
@@ -27,10 +27,16 @@ void event_effect_init(EventEffect* effect, Person* person);
 /**
  * Libera da memória os espaços alocados, porém NÃO desaloca da memória a instância de EventEffect
  *
- * @param effect instância de EventEffect
+ * @param _effect instância de EventEffect
  */
-void event_effect_clear(EventEffect* effect);
-void event_effect_destructor(void* effect);
+void event_effect_clear(void* _effect);
+
+/**
+ * Libera da memória os espaços alocados e desaloca da memória a instância de EventEffect
+ *
+ * @param _effect instância de EventEffect
+ */
+void event_effect_free(void* _effect);
 
 /**
  * Inicializa Event
@@ -45,9 +51,15 @@ void event_init(Event* event, const char* description, EventEffect* fromPerson, 
 /**
  * Libera da memória os espaços alocados, porém NÃO desaloca da memória a instância de Event
  *
- * @param event instância de Event
+ * @param _event instância de Event
  */
-void event_clear(Event* event);
-void event_destructor(void* event);
+void event_clear(void* _event);
+
+/**
+ * Libera da memória os espaços alocados e desaloca da memória a instância de Event
+ *
+ * @param _event instância de Event
+ */
+void event_free(void* _event);
 
 #endif // GSI_EVENT_H_INCLUDED

@@ -3,6 +3,51 @@
 #include "gsi_event.h"
 
 /**
+ * Inicializa uma pessoa
+ *
+ * @param person instância de Person a ser inicializada
+ * @param name nome completo de Person
+ * @param nickname nome curto para se referir a Person
+ */
+void person_init(Person* person, char name[100], char nickname[20]) {
+    strcpy(person->name, name);
+    strcpy(person->nickname, nickname);
+    person->events = new_linked_list();
+    person->contacts = new_linked_list();
+}
+
+/**
+ * Libera da memória os espaços alocados, porém NÃO desaloca da memória a instância de Person
+ *
+ * @param _person instância de Person
+ */
+void person_clear(void* _person) {
+    Person* person = (Person*) _person;
+    strcpy(person->name, "");
+    strcpy(person->nickname, "");
+
+    if (person->events != NULL) {
+        linked_list_free(person->events);
+        person->events = NULL;
+    }
+
+    if (person->contacts != NULL) {
+        linked_list_free_eraser_destructor(person->contacts, contact_free);
+        person->contacts = NULL;
+    }
+}
+
+/**
+ * Libera da memória os espaços alocados e desaloca da memória a instância de Person
+ *
+ * @param _person instância de Person
+ */
+void person_free(void* _person) {
+    person_clear(_person);
+    free(_person);
+}
+
+/**
  * Inicializa um relacionamento
  *
  * @param relationship relacionamento a ser inicializado
@@ -15,16 +60,24 @@ void relationship_init(Relationship* relationship, const char* description) {
 /**
  * Libera da memória os espaços alocados, porém NÃO desaloca da memória a instância de Relationship
  *
- * @param relationship instância de Relationship
+ * @param _relationship instância de Relationship
  */
-void relationship_clear(Relationship* relationship) {
+void relationship_clear(void* _relationship) {
+    Relationship* relationship = (Relationship*) _relationship;
     if (relationship->description != NULL) {
-        string_clear(relationship->description);
-        free(relationship->description);
+        string_free(relationship->description);
         relationship->description = NULL;
     }
-} void relationship_destructor(void* relationship) {
-    relationship_clear((Relationship*) relationship);
+}
+
+/**
+ * Libera da memória os espaços alocados e desaloca da memória a instância de Relationship
+ *
+ * @param _relationship instância de Relationship
+ */
+void relationship_free(void* _relationship) {
+    relationship_clear(_relationship);
+    free(_relationship);
 }
 
 /**
@@ -45,54 +98,24 @@ void contact_init(Contact* contact, Person* person, LinkedList* relationships) {
 /**
  * Libera da memória os espaços alocados, porém NÃO desaloca da memória a instância de Contact
  *
- * @param contact instância de Contact
+ * @param _contact instância de Contact
  */
-void contact_clear(Contact* contact) {
+void contact_clear(void* _contact) {
+    Contact* contact = (Contact*) _contact;
     contact->person = NULL;
 
     if (contact->relationships != NULL) {
-        linked_list_clear_eraser_destructor(contact->relationships, relationship_destructor);
-        free(contact->relationships);
+        linked_list_free_eraser_destructor(contact->relationships, relationship_free);
         contact->relationships = NULL;
     }
-} void contact_destructor(void* contact) {
-    contact_clear((Contact*) contact);
 }
 
 /**
- * Inicializa uma pessoa
+ * Libera da memória os espaços alocados e desaloca da memória a instância de Contact
  *
- * @param person instância de Person a ser inicializada
- * @param name nome completo de Person
- * @param nickname nome curto para se referir a Person
+ * @param _contact instância de Contact
  */
-void person_init(Person* person, char name[100], char nickname[20]) {
-    strcpy(person->name, name);
-    strcpy(person->nickname, nickname);
-    person->events = new_linked_list();
-    person->contacts = new_linked_list();
-}
-
-/**
- * Libera da memória os espaços alocados, porém NÃO desaloca da memória a instância de Person
- *
- * @param person instância de Person
- */
-void person_clear(Person* person) {
-    strcpy(person->name, "");
-    strcpy(person->nickname, "");
-
-    if (person->events != NULL) {
-        linked_list_clear(person->events);
-        free(person->events);
-        person->events = NULL;
-    }
-
-    if (person->contacts != NULL) {
-        linked_list_clear_eraser_destructor(person->contacts, contact_destructor);
-        free(person->contacts);
-        person->contacts = NULL;
-    }
-} void person_destructor(void* person) {
-    person_clear((Person*) person);
+void contact_free(void* _contact) {
+    contact_clear(_contact);
+    free(_contact);
 }

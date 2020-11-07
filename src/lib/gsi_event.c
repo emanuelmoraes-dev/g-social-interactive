@@ -13,12 +13,21 @@ void event_effect_init(EventEffect* effect, Person* person) {
 /**
  * Libera da memória os espaços alocados, porém NÃO desaloca da memória a instância de EventEffect
  *
- * @param effect instância de EventEffect
+ * @param _effect instância de EventEffect
  */
-void event_effect_clear(EventEffect* effect) {
+void event_effect_clear(void* _effect) {
+    EventEffect* effect = (EventEffect*) _effect;
     effect->person = NULL;
-} void event_effect_destructor(void* effect) {
-    event_effect_clear((EventEffect*) effect);
+}
+
+/**
+ * Libera da memória os espaços alocados e desaloca da memória a instância de EventEffect
+ *
+ * @param _effect instância de EventEffect
+ */
+void event_effect_free(void* _effect) {
+    event_effect_clear(_effect);
+    free(_effect);
 }
 
 /**
@@ -38,26 +47,32 @@ void event_init(Event* event, const char* description, EventEffect* fromPerson, 
 /**
  * Libera da memória espaços alocados, porém NÃO desaloca da memória a instância de Event
  *
- * @param event instância de Event
+ * @param _event instância de Event
  */
-void event_clear(Event* event) {
+void event_clear(void* _event) {
+    Event* event = (Event*) _event;
     if (event->description != NULL) {
-        string_clear(event->description);
-        free(event->description);
+        string_free(event->description);
         event->description = NULL;
     }
 
     if (event->fromPerson != NULL) {
-        event_effect_clear(event->fromPerson);
-        free(event->fromPerson);
+        event_effect_free(event->fromPerson);
         event->fromPerson = NULL;
     }
 
     if (event->toPersons != NULL) {
-        linked_list_clear_eraser_destructor(event->toPersons, event_effect_destructor);
-        free(event->toPersons);
+        linked_list_free_eraser_destructor(event->toPersons, event_effect_free);
         event->toPersons = NULL;
     }
-} void event_destructor(void* event) {
-    event_clear((Event*) event);
+}
+
+/**
+ * Libera da memória espaços alocados e desaloca da memória a instância de Event
+ *
+ * @param _event instância de Event
+ */
+void event_free(void* _event) {
+    event_clear(_event);
+    free(_event);
 }
