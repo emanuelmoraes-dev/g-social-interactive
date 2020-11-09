@@ -3,7 +3,6 @@
 
 #include "gsi/annotations.h"
 #include "gsi/event.h"
-#include "gsi/person.h"
 
 struct st_event_effect {
     borrowed Person* person; // Pessoa afetada pelo evento

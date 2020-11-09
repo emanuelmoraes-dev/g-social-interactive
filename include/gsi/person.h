@@ -2,7 +2,6 @@
 #define GSI_PERSON_H_INCLUDED
 
 #include "types/person.h"
-#include "types/event.h"
 
 #include "cemdutil/linked_list.h"
 

@@ -5,7 +5,6 @@
 
 #include "gsi/annotations.h"
 #include "gsi/person.h"
-#include "gsi/event.h"
 
 struct st_person {
     char name[100]; // nome completo de Person
