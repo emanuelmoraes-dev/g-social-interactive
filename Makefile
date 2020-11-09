@@ -6,8 +6,8 @@ MAIN    = ./src/main
 INCLUDE = ./include
 SRC_LIB = ./src/lib
 
-# SUB_DIRS =
-LIB_FILES  = $(OBJ)/gsi_person.o $(OBJ)/gsi_event.o
+SUB_DIRS   = $(OBJ)/gsi
+LIB_FILES  = $(OBJ)/gsi/person.o $(OBJ)/gsi/event.o
 MAIN_FILES = $(BIN)/gsi
 
 EXS   = c
@@ -23,7 +23,7 @@ libgsi: dirs $(LIB_FILES)
 
 dirs:
 	mkdir -p $(BIN) $(LIB) $(OBJ)
-	# mkdir -p $(SUB_DIRS)
+	mkdir -p $(SUB_DIRS)
 
 clean:
 	rm -rf $(BIN)

@@ -1,20 +1,10 @@
 #ifndef GSI_EVENT_H_INCLUDED
 #define GSI_EVENT_H_INCLUDED
 
+#include "types/event.h"
+#include "types/person.h"
+
 #include "cemdutil/linked_list.h"
-#include "cemdutil/dynamic_string.h"
-#include "gsi_annotations.h"
-#include "gsi_person.h"
-
-typedef struct st_event_effect {
-    borrowed Person* person; // Pessoa afetada pelo evento
-} EventEffect;
-
-typedef struct st_event {
-    owner String* description; // Descrição do evento
-    owner EventEffect* fromPerson; // Efeitos para a pessoa que gerou o evento
-    owner LinkedList* toPersons; // LinkedList<owner EventEffect>: Efeitos para outras pessoas
-} Event;
 
 /**
  * Inicializa um EventEffect
