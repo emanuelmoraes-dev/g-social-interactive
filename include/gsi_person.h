@@ -1,23 +1,30 @@
 #ifndef GSI_PERSON_H_INCLUDED
 #define GSI_PERSON_H_INCLUDED
 
+#include "cemdutil/linked_list.h"
+#include "cemdutil/dynamic_string.h"
 #include "gsi_annotations.h"
-#include "linked_list.h"
-#include "dynamic_string.h"
+#include "gsi_event.h"
 
 typedef struct st_person {
     char name[100]; // nome completo de Person
     char nickname[20]; // nome curto para se referir a Person
     owner LinkedList* events; // LinkedList<borrowed Event>: lista de eventos que afeta ou afetou essa pessoa
-    owner LinkedList* contacts; // LinkedList<owner Contact>: Lista de contatos com outras pessoas
+    owner LinkedList* contacts; // LinkedList<owner Contact>: lista de contatos com outras pessoas
 } Person;
 
+typedef struct st_relationship_type {
+    char name[100]; // nome do tipo de relacionamento
+    owner String* description; // descrição do tipo de relacionamento
+} RelationshipType;
+
 typedef struct st_relationship {
-    owner String* description; // descrição do relacionamento
+    borrowed RelationshipType* relationship_type; // tipo do relacionamento
+    owner LinkedList* history_events; // LinkedList<borrowed Event>: lista de eventos que ocorreram entre a pessoa e o contato
 } Relationship;
 
 typedef struct st_contact {
-    borrowed Person* person; // Pessoa do contato
+    borrowed Person* person; // pessoa do contato
     owner LinkedList* relationships; // LinkedList<owner Relationship>: lista de relacionamentos mantidos para a pessoa do contato
 } Contact;
 
@@ -45,12 +52,36 @@ void person_clear(void* _person);
 void person_free(void* _person);
 
 /**
+ * Inicializa tipo de relacionamento
+ *
+ * @param relationship_type instância de RelationshipType
+ * @param name nome do tipo de relacionamento
+ * @param description descrição do tipo de relacionamento
+ */
+void relationship_type_init(RelationshipType* relationship_type, const char* name, const char* description);
+
+/**
+ * Libera da memória os espaços alocaos, porém NÃO desaloca da memória a instância de RelationshipType
+ *
+ * @param _relationship_type instância de RelationshipType
+ */
+void relationship_type_clear(void* _relationship_type);
+
+/**
+ * Libera da memória os espaços alocaos e desaloca da memória a instância de RelationshipType
+ *
+ * @param _relationship_type instância de RelationshipType
+ */
+void relationship_type_free(void* _relationship_type);
+
+/**
  * Inicializa um relacionamento
  *
  * @param relationship relacionamento a ser inicializado
- * @param description descrição do relacionamento
+ * @param relationship_type tipo do relacionamento
+ * @param history_events lista de relacionamentos mantidos para a pessoa do contato
  */
-void relationship_init(Relationship* relationship, const char* description);
+void relationship_init(Relationship* relationship, RelationshipType* relationship_type, LinkedList* history_events);
 
 /**
  * Libera da memória os espaços alocados, porém NÃO desaloca da memória a instância de Relationship

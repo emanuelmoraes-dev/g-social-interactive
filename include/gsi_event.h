@@ -1,10 +1,10 @@
 #ifndef GSI_EVENT_H_INCLUDED
 #define GSI_EVENT_H_INCLUDED
 
+#include "cemdutil/linked_list.h"
+#include "cemdutil/dynamic_string.h"
 #include "gsi_annotations.h"
 #include "gsi_person.h"
-#include "linked_list.h"
-#include "dynamic_string.h"
 
 typedef struct st_event_effect {
     borrowed Person* person; // Pessoa afetada pelo evento

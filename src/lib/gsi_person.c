@@ -48,13 +48,55 @@ void person_free(void* _person) {
 }
 
 /**
+ * Inicializa tipo de relacionamento
+ *
+ * @param relationship_type instância de RelationshipType
+ * @param name nome do tipo de relacionamento
+ * @param description descrição do tipo de relacionamento
+ */
+void relationship_type_init(RelationshipType* relationship_type, const char* name, const char* description) {
+    strcpy(relationship_type->name, name);
+    relationship_type->description = new_string(description);
+}
+
+/**
+ * Libera da memória os espaços alocaos, porém NÃO desaloca da memória a instância de RelationshipType
+ *
+ * @param _relationship_type instância de RelationshipType
+ */
+void relationship_type_clear(void* _relationship_type) {
+    RelationshipType* relationship_type = (RelationshipType*) _relationship_type;
+    strcpy(relationship_type->name, "");
+
+    if (relationship_type->description != NULL) {
+        string_free(relationship_type->description);
+        relationship_type->description = NULL;
+    }
+}
+
+/**
+ * Libera da memória os espaços alocaos e desaloca da memória a instância de RelationshipType
+ *
+ * @param _relationship_type instância de RelationshipType
+ */
+void relationship_type_free(void* _relationship_type) {
+    relationship_type_clear(_relationship_type);
+    free(_relationship_type);
+}
+
+/**
  * Inicializa um relacionamento
  *
  * @param relationship relacionamento a ser inicializado
- * @param description descrição do relacionamento
+ * @param relationship_type tipo do relacionamento
+ * @param history_events lista de relacionamentos mantidos para a pessoa do contato
  */
-void relationship_init(Relationship* relationship, const char* description) {
-    relationship->description = new_string(description);
+void relationship_init(Relationship* relationship, RelationshipType* relationship_type, LinkedList* history_events) {
+    if (history_events == NULL)
+        history_events = new_linked_list();
+
+    relationship->relationship_type = relationship_type;
+    relationship->history_events = history_events;
 }
 
 /**
@@ -64,9 +106,13 @@ void relationship_init(Relationship* relationship, const char* description) {
  */
 void relationship_clear(void* _relationship) {
     Relationship* relationship = (Relationship*) _relationship;
-    if (relationship->description != NULL) {
-        string_free(relationship->description);
-        relationship->description = NULL;
+
+    if (relationship->relationship_type != NULL)
+        relationship->relationship_type = NULL;
+
+    if (relationship->history_events != NULL) {
+        linked_list_free(relationship->history_events);
+        relationship->history_events = NULL;
     }
 }
 
