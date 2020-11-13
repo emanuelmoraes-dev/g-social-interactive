@@ -1,10 +1,10 @@
 #ifndef TYPES_EVENT_H_INCLUDED
 #define TYPES_EVENT_H_INCLUDED
 
-struct st_event_effect;
-struct st_event;
+struct event_effect;
+struct event;
 
-typedef struct st_event_effect EventEffect;
-typedef struct st_event Event;
+typedef struct event_effect EventEffect;
+typedef struct event Event;
 
 #endif // TYPES_EVENT_H_INCLUDED

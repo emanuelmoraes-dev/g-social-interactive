@@ -7,11 +7,11 @@
 
 #include "cemdutil/linked_list.h"
 
-struct st_event_effect {
+struct event_effect {
     borrowed Person* person; // Pessoa afetada pelo evento
 };
 
-struct st_event {
+struct event {
     owner String* description; // Descrição do evento
     owner EventEffect* fromPerson; // Efeitos para a pessoa que gerou o evento
     owner LinkedList* toPersons; // LinkedList<owner EventEffect>: Efeitos para outras pessoas

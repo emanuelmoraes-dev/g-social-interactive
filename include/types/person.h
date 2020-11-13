@@ -1,14 +1,14 @@
 #ifndef TYPES_PERSON_H_INCLUDED
 #define TYPES_PERSON_H_INCLUDED
 
-struct st_person;
-struct st_relationship_type;
-struct st_relationship;
-struct st_contact;
+struct person;
+struct relationship_type;
+struct relationship;
+struct contact;
 
-typedef struct st_person Person;
-typedef struct st_relationship_type RelationshipType;
-typedef struct st_relationship Relationship;
-typedef struct st_contact Contact;
+typedef struct person Person;
+typedef struct relationship_type RelationshipType;
+typedef struct relationship Relationship;
+typedef struct contact Contact;
 
 #endif // TYPES_PERSON_H_INCLUDED
