@@ -1,8 +1,8 @@
 #ifndef GSI_PERSON_H_INCLUDED
 #define GSI_PERSON_H_INCLUDED
 
-#include "gsi/annotations.h"
 #include "types/person.h"
+#include "gsi/annotations.h"
 
 #include "cemdutil/linked_list.h"
 #include "cemdutil/dynamic_string.h"
@@ -36,7 +36,7 @@ struct contact {
  * @param name nome completo de Person
  * @param nickname nome curto para se referir a Person
  */
-void person_init(Person* person, char name[100], char nickname[20]);
+void person_init(Person* person, const char name[100], const char nickname[20]);
 
 /**
  * Libera da memória os espaços alocados, porém NÃO desaloca da memória a instância de Person
@@ -59,7 +59,7 @@ void person_free(void* _person);
  * @param name nome do tipo de relacionamento
  * @param description descrição do tipo de relacionamento
  */
-void relationship_type_init(RelationshipType* relationship_type, const char* name, const char* description);
+void relationship_type_init(RelationshipType* relationship_type, const char name[100], String* description);
 
 /**
  * Libera da memória os espaços alocaos, porém NÃO desaloca da memória a instância de RelationshipType

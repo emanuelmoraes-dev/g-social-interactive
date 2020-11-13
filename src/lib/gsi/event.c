@@ -41,8 +41,8 @@ void event_effect_free(void* _effect) {
  * @param fromPerson efeitos para a pessoa que gerou o evento
  * @param toPersons efeitos para as outras pessoas
  */
-void event_init(Event* event, const char* description, EventEffect* fromPerson, LinkedList* toPersons) {
-    event->description = new_string(description);
+void event_init(Event* event, String* description, EventEffect* fromPerson, LinkedList* toPersons) {
+    event->description = description;
     event->fromPerson = fromPerson;
     event->toPersons = toPersons;
 }
@@ -54,20 +54,21 @@ void event_init(Event* event, const char* description, EventEffect* fromPerson, 
  */
 void event_clear(void* _event) {
     Event* event = (Event*) _event;
-    if (event->description != NULL) {
-        string_free(event->description);
-        event->description = NULL;
-    }
 
-    if (event->fromPerson != NULL) {
-        event_effect_free(event->fromPerson);
-        event->fromPerson = NULL;
-    }
+    String* description = event->description;
+    event->description = NULL;
+    if (description != NULL)
+        string_free(description);
 
-    if (event->toPersons != NULL) {
-        linked_list_free_eraser_destructor(event->toPersons, event_effect_free);
-        event->toPersons = NULL;
-    }
+    EventEffect* fromPerson = event->fromPerson;
+    event->fromPerson = NULL;
+    if (fromPerson != NULL)
+        event_effect_free(fromPerson);
+
+    LinkedList* toPersons = event->toPersons;
+    event->toPersons = NULL;
+    if (toPersons != NULL)
+        linked_list_free_eraser_destructor(toPersons, event_effect_free);
 }
 
 /**

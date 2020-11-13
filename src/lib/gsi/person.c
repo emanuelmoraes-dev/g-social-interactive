@@ -12,7 +12,7 @@
  * @param name nome completo de Person
  * @param nickname nome curto para se referir a Person
  */
-void person_init(Person* person, char name[100], char nickname[20]) {
+void person_init(Person* person, const char name[100], const char nickname[20]) {
     strcpy(person->name, name);
     strcpy(person->nickname, nickname);
     person->events = new_linked_list();
@@ -29,15 +29,15 @@ void person_clear(void* _person) {
     strcpy(person->name, "");
     strcpy(person->nickname, "");
 
-    if (person->events != NULL) {
-        linked_list_free(person->events);
-        person->events = NULL;
-    }
+    LinkedList* events = person->events;
+    person->events = NULL;
+    if (events != NULL)
+        linked_list_free(events);
 
-    if (person->contacts != NULL) {
-        linked_list_free_eraser_destructor(person->contacts, contact_free);
-        person->contacts = NULL;
-    }
+    LinkedList* contacts = person->contacts;
+    person->contacts = NULL;
+    if (contacts != NULL)
+        linked_list_free_eraser_destructor(contacts, contact_free);
 }
 
 /**
@@ -57,9 +57,9 @@ void person_free(void* _person) {
  * @param name nome do tipo de relacionamento
  * @param description descrição do tipo de relacionamento
  */
-void relationship_type_init(RelationshipType* relationship_type, const char* name, const char* description) {
+void relationship_type_init(RelationshipType* relationship_type, const char name[100], String* description) {
     strcpy(relationship_type->name, name);
-    relationship_type->description = new_string(description);
+    relationship_type->description = description;
 }
 
 /**
@@ -71,10 +71,10 @@ void relationship_type_clear(void* _relationship_type) {
     RelationshipType* relationship_type = (RelationshipType*) _relationship_type;
     strcpy(relationship_type->name, "");
 
-    if (relationship_type->description != NULL) {
-        string_free(relationship_type->description);
-        relationship_type->description = NULL;
-    }
+    String* description = relationship_type->description;
+    relationship_type->description = NULL;
+    if (description != NULL)
+        string_free(description);
 }
 
 /**
@@ -109,14 +109,12 @@ void relationship_init(Relationship* relationship, RelationshipType* relationshi
  */
 void relationship_clear(void* _relationship) {
     Relationship* relationship = (Relationship*) _relationship;
+    relationship->relationship_type = NULL;
 
-    if (relationship->relationship_type != NULL)
-        relationship->relationship_type = NULL;
-
-    if (relationship->history_events != NULL) {
-        linked_list_free(relationship->history_events);
-        relationship->history_events = NULL;
-    }
+    LinkedList* history_events = relationship->history_events;
+    relationship->history_events = NULL;
+    if (history_events != NULL)
+        linked_list_free(history_events);
 }
 
 /**
@@ -153,10 +151,10 @@ void contact_clear(void* _contact) {
     Contact* contact = (Contact*) _contact;
     contact->person = NULL;
 
-    if (contact->relationships != NULL) {
-        linked_list_free_eraser_destructor(contact->relationships, relationship_free);
-        contact->relationships = NULL;
-    }
+    LinkedList* relationships = contact->relationships;
+    contact->relationships = NULL;
+    if (relationships != NULL)
+        linked_list_free_eraser_destructor(relationships, relationship_free);
 }
 
 /**

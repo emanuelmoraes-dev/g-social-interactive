@@ -1,11 +1,13 @@
 #ifndef GSI_EVENT_H_INCLUDED
 #define GSI_EVENT_H_INCLUDED
 
-#include "gsi/annotations.h"
 #include "types/event.h"
 #include "types/person.h"
 
+#include "gsi/annotations.h"
+
 #include "cemdutil/linked_list.h"
+#include "cemdutil/dynamic_string.h"
 
 struct event_effect {
     borrowed Person* person; // Pessoa afetada pelo evento
@@ -47,7 +49,7 @@ void event_effect_free(void* _effect);
  * @param fromPerson efeitos para a pessoa que gerou o evento
  * @param toPersons efeitos para as outras pessoas
  */
-void event_init(Event* event, const char* description, EventEffect* fromPerson, LinkedList* toPersons);
+void event_init(Event* event, String* description, EventEffect* fromPerson, LinkedList* toPersons);
 
 /**
  * Libera da memória os espaços alocados, porém NÃO desaloca da memória a instância de Event
