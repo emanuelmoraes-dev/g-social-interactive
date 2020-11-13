@@ -1,9 +1,8 @@
 #ifndef GSI_EVENT_H_INCLUDED
 #define GSI_EVENT_H_INCLUDED
 
-#include "types/event.h"
-#include "types/person.h"
-
+#include "gsi/types/event.h"
+#include "gsi/types/person.h"
 #include "gsi/annotations.h"
 
 #include "cemdutil/linked_list.h"

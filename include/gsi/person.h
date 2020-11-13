@@ -1,7 +1,7 @@
 #ifndef GSI_PERSON_H_INCLUDED
 #define GSI_PERSON_H_INCLUDED
 
-#include "types/person.h"
+#include "gsi/types/person.h"
 #include "gsi/annotations.h"
 
 #include "cemdutil/linked_list.h"

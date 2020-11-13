@@ -1,5 +1,5 @@
-#ifndef TYPES_PERSON_H_INCLUDED
-#define TYPES_PERSON_H_INCLUDED
+#ifndef GSI_TYPES_PERSON_H_INCLUDED
+#define GSI_TYPES_PERSON_H_INCLUDED
 
 struct person;
 struct relationship_type;
@@ -11,4 +11,4 @@ typedef struct relationship_type RelationshipType;
 typedef struct relationship Relationship;
 typedef struct contact Contact;
 
-#endif // TYPES_PERSON_H_INCLUDED
+#endif // GSI_TYPES_PERSON_H_INCLUDED

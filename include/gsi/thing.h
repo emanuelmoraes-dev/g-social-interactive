@@ -1,7 +1,7 @@
 #ifndef GSI_THING_H_INCLUDED
 #define GSI_THING_H_INCLUDED
 
-#include "types/thing.h"
+#include "gsi/types/thing.h"
 #include "gsi/annotations.h"
 #include "cemdutil/dynamic_string.h"
 
