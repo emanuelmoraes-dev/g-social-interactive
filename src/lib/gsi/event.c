@@ -1,18 +1,7 @@
 #include "cemdutil/linked_list.h"
 #include "cemdutil/dynamic_string.h"
 
-#include "gsi/annotations.h"
 #include "gsi/event.h"
-
-struct st_event_effect {
-    borrowed Person* person; // Pessoa afetada pelo evento
-};
-
-struct st_event {
-    owner String* description; // Descrição do evento
-    owner EventEffect* fromPerson; // Efeitos para a pessoa que gerou o evento
-    owner LinkedList* toPersons; // LinkedList<owner EventEffect>: Efeitos para outras pessoas
-};
 
 /**
  * Inicializa um EventEffect

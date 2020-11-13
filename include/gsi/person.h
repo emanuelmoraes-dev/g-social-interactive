@@ -1,9 +1,33 @@
 #ifndef GSI_PERSON_H_INCLUDED
 #define GSI_PERSON_H_INCLUDED
 
+#include "gsi/annotations.h"
 #include "types/person.h"
 
 #include "cemdutil/linked_list.h"
+#include "cemdutil/dynamic_string.h"
+
+struct st_person {
+    char name[100]; // nome completo de Person
+    char nickname[20]; // nome curto para se referir a Person
+    owner LinkedList* events; // LinkedList<borrowed Event>: lista de eventos que afeta ou afetou essa pessoa
+    owner LinkedList* contacts; // LinkedList<owner Contact>: lista de contatos com outras pessoas
+};
+
+struct st_relationship_type {
+    char name[100]; // nome do tipo de relacionamento
+    owner String* description; // descrição do tipo de relacionamento
+};
+
+struct st_relationship {
+    borrowed RelationshipType* relationship_type; // tipo do relacionamento
+    owner LinkedList* history_events; // LinkedList<borrowed Event>: lista de eventos que ocorreram entre a pessoa e o contato
+};
+
+struct st_contact {
+    borrowed Person* person; // pessoa do contato
+    owner LinkedList* relationships; // LinkedList<owner Relationship>: lista de relacionamentos mantidos para a pessoa do contato
+};
 
 /**
  * Inicializa uma pessoa
