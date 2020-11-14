@@ -8,15 +8,15 @@
 #include "cemdutil/linked_list.h"
 #include "cemdutil/dynamic_string.h"
 
-typedef struct event_effect {
-    borrowed struct person* person; // Pessoa afetada pelo evento
-} EventEffect;
+struct event_effect {
+    borrowed Person* person; // Pessoa afetada pelo evento
+};
 
-typedef struct event {
+struct event {
     owner String* description; // Descrição do evento
     owner EventEffect* fromPerson; // Efeitos para a pessoa que gerou o evento
     owner LinkedList* toPersons; // LinkedList<owner EventEffect>: Efeitos para outras pessoas
-} Event;
+};
 
 /**
  * Inicializa um EventEffect

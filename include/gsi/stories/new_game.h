@@ -8,6 +8,6 @@
  *
  * @param gsi instância de GSI
  */
-void stories_init_player(GSI* gsi);
+void stories_create_player(GSI* gsi);
 
 #endif // GSI_STORIES_NEW_GAME_H_INCLUDED

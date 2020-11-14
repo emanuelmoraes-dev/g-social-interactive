@@ -5,9 +5,9 @@
 #include "gsi/types/person.h"
 #include "gsi/annotations.h"
 
-typedef struct gsi {
-    owner struct person* player; // jogador
-} GSI;
+struct gsi {
+    owner Person* player; // jogador
+};
 
 /**
  * Inicializa uma instância de GSI
