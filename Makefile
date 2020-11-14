@@ -14,9 +14,9 @@ PERSON   = $(OBJ)/gsi/person.o
 EVENT    = $(OBJ)/gsi/event.o
 THING    = $(OBJ)/gsi/thing.o
 GSI      = $(OBJ)/gsi/gsi.o
-NEW_GAME = $(OBJ)/stories/new_game/console_default.o
+NEW_GAME = $(OBJ)/gsi/stories/new_game/console_default.o
 
-SUB_DIRS   = $(OBJ)/gsi $(OBJ)/stories/new_game
+SUB_DIRS   = $(OBJ)/gsi/stories/new_game
 LIB_FILES  = $(PERSON) $(EVENT) $(THING) $(GSI) $(NEW_GAME)
 MAIN_FILES = $(BIN)/app
 
