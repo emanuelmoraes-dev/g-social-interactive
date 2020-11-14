@@ -5,7 +5,7 @@
 #include "gsi/annotations.h"
 #include "cemdutil/dynamic_string.h"
 
-struct thing_type {
+typedef struct thing_type {
     char name[100]; // nome do tipo
     owner String* description; // descrição do tipo
     double rarity; // raridade
@@ -15,13 +15,13 @@ struct thing_type {
 
     double utility_value; // valor útil
     double durability; // durabilidade: taxa por unidade de tempo de desvalorização do valor útil
-};
+} ThingType;
 
-struct thing {
+typedef struct thing {
     borrowed ThingType* type; // tipo
     char name[100]; // nome
     owner String* description; // descrição
-};
+} Thing;
 
 /**
  * Inicializa um ThingType

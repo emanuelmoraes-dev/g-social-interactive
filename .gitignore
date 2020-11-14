@@ -2,10 +2,12 @@
 *.d
 
 # Object files
-*.o
-*.ko
-*.obj
-*.elf
+obj/gsi
+obj/stories
+# *.o
+# *.ko
+# *.obj
+# *.elf
 
 # Linker output
 *.ilk
@@ -21,7 +23,7 @@
 # *.a
 # *.la
 # *.lo
-lib/libgsi.a
+lib/
 
 # Shared objects (inc. Windows DLLs)
 *.dll

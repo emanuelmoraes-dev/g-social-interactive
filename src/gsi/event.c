@@ -1,7 +1,8 @@
+#include "gsi/event.h"
+#include "gsi/person.h"
+
 #include "cemdutil/linked_list.h"
 #include "cemdutil/dynamic_string.h"
-
-#include "gsi/event.h"
 
 /**
  * Inicializa um EventEffect

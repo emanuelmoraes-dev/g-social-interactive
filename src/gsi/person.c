@@ -1,9 +1,9 @@
 #include <string.h>
 
+#include "gsi/person.h"
+
 #include "cemdutil/linked_list.h"
 #include "cemdutil/dynamic_string.h"
-
-#include "gsi/person.h"
 
 /**
  * Inicializa uma pessoa
