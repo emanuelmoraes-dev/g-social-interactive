@@ -2,12 +2,12 @@
 *.d
 
 # Object files
-obj/gsi
-obj/stories
 # *.o
 # *.ko
 # *.obj
 # *.elf
+obj/gsi
+obj/stories
 
 # Linker output
 *.ilk
