@@ -1,5 +1,5 @@
-#ifndef LINKED_LIST_H_INCLUDED
-#define LINKED_LIST_H_INCLUDED
+#ifndef C_EMD_UTIL_LINKED_LIST_H_INCLUDED
+#define C_EMD_UTIL_LINKED_LIST_H_INCLUDED
 
 #include <stdlib.h>
 
@@ -9,11 +9,17 @@
 #define LINKED_LIST_FOR_EACH_PREVIOUS(it, linked_list) \
     for (it = linked_list != NULL ? linked_list_head(linked_list) : NULL; it != NULL; it = it->next)
 
+/**
+ * Struct que representa uma instância de cada elemento do LinkedList
+ */
 typedef struct __st_linked_list_element {
     void* value;
     struct __st_linked_list_element* next;
 } LinkedListElement;
 
+/**
+ * Struct que representa uma instância do LinkedList
+ */
 typedef struct __st_linked_list {
     // public
     int size;
@@ -318,4 +324,4 @@ void linked_list_free_eraser_destructor(LinkedList* linked_list, void (*destruct
  */
 void linked_list_for_each(LinkedList* linked_list, short (*callback)(void*, int));
 
-#endif // LINKED_LIST_H_INCLUDED
+#endif // C_EMD_UTIL_LINKED_LIST_H_INCLUDED
